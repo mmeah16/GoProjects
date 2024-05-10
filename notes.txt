@@ -1,0 +1,4 @@
+To build a executable file that can run without Go installed on a machine,
+run go mod init example.com/app_name, where the path can be changed.
+
+Then run go build, which'll generate the executable file. 

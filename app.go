@@ -1,3 +1,4 @@
+// special package, main entry point of the application
 package main
 
 import "fmt"
