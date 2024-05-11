@@ -4,5 +4,7 @@ file will be called first-app.
 
 This file can be executed by running ./first-app 
 
+You can also run a file using go run . 
+
 Then run go build, which'll generate the executable file. 
 
