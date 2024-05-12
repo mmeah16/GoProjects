@@ -5,9 +5,11 @@ import (
 	"math"
 )
 
+// scoped to all functions
+// const cannot be changed or overwritten, yet var can
+const inflationRate = 2.5
+
 func main() {
-	// const cannot be changed or overwritten, yet var can
-	const inflationRate = 2.5
 	// overriding inferred value
 	var investmentAmount float64
 	var years float64
@@ -22,8 +24,9 @@ func main() {
 	fmt.Print("Investment Return Rate: ")
 	fmt.Scan(&expectedReturnRate)
 
-	futureValue := investmentAmount * math.Pow(1+(expectedReturnRate)/100, years)
-	futureRealValue := futureValue / math.Pow(1+inflationRate/100, years)
+	futureValue, futureRealValue := calculateFutureValues(investmentAmount, expectedReturnRate, years)
+	// futureValue := investmentAmount * math.Pow(1+(expectedReturnRate)/100, years)
+	// futureRealValue := futureValue / math.Pow(1+inflationRate/100, years)
 
 	// Sprintf saves formatted string in a variable
 	formattedFV := fmt.Sprintf("Future Value: %.2f\n", futureValue)
@@ -35,4 +38,15 @@ func main() {
 	// fmt.Printf("Future Value: %.1f\n", futureValue)
 	// fmt.Printf("Future Value (adjusted for Inflation): %.1f\n", futureRealValue)
 
+}
+
+func calculateFutureValues(investmentAmount, expectedReturnRate, years float64) (fv float64, rfv float64) {
+	fv = investmentAmount * math.Pow(1+(expectedReturnRate)/100, years)
+	rfv = fv / math.Pow(1+inflationRate/100, years)
+
+	// explicitly state what you want to return
+	return fv, rfv
+
+	// automatically returns the values the function generates
+	// return
 }
