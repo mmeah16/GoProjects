@@ -4,10 +4,15 @@ import "fmt"
 
 func main() {
 
-	var revenue = 0.0
-	var expenses = 0.0
-	var taxRate = 0.0
+	revenue, expenses, taxRate := getData()
 
+	ebt, profit := calculateProfits(revenue, expenses, taxRate)
+
+	fmt.Println(ebt)
+	fmt.Println(profit)
+}
+
+func getData() (revenue, expenses, taxRate float64) {
 	fmt.Print("Enter revenue: ")
 	fmt.Scan(&revenue)
 
@@ -17,8 +22,15 @@ func main() {
 	fmt.Print("Enter tax rate: ")
 	fmt.Scan(&taxRate)
 
-	ebt := (revenue - expenses)
+	return revenue, expenses, taxRate
+}
+
+func calculateProfits(revenue, expenses, taxRate float64) (ebtString, profitString string) {
+	ebt := revenue - expenses
 	profit := ebt * (1 - taxRate/100)
-	fmt.Println(ebt)
-	fmt.Println(profit)
+
+	ebtString = fmt.Sprintf("Earnings before taxes: %.2f", ebt)
+	profitString = fmt.Sprintf("Profits after taxes: %.2f", profit)
+
+	return ebtString, profitString
 }
