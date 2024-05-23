@@ -1,9 +1,29 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+	"strconv"
+)
+
+// write data to a file
+
+const accountBalanceFile = "balance.txt"
+
+func getBalanceFromFile() float64 {
+	data, _ := os.ReadFile(accountBalanceFile)
+	balanceText := string(data)
+	balance, _ := strconv.ParseFloat(balanceText, 64)
+	return balance
+}
+
+func writeBalanceToFile(balance float64) {
+	balanceText := fmt.Sprint(balance)
+	os.WriteFile(accountBalanceFile, []byte(balanceText), 0644)
+}
 
 func main() {
-	var accountBalance = 1000.00
+	var accountBalance = getBalanceFromFile()
 
 	for i := 0; i < 200; i++ {
 
@@ -17,10 +37,10 @@ func main() {
 		var choice int
 		fmt.Print("Your choice: ")
 		fmt.Scan(&choice)
-
 		switch choice {
 		case 1:
 			fmt.Println("Your balance is", accountBalance)
+			fmt.Println()
 		case 2:
 			fmt.Print("Desposit amount: ")
 			var depositAmount float64
@@ -31,6 +51,9 @@ func main() {
 			}
 			accountBalance += depositAmount
 			fmt.Println("Balance updated! New amount:", accountBalance)
+			writeBalanceToFile(accountBalance)
+			fmt.Println()
+			fmt.Println()
 		case 3:
 			fmt.Print("Withdrawl amount: ")
 			var withdrawlAmount float64
@@ -43,11 +66,17 @@ func main() {
 
 			if withdrawlAmount > accountBalance {
 				fmt.Println("Withdrawl amount is greater than account balance!")
-				return
+				continue
 			}
 			accountBalance -= withdrawlAmount
+			writeBalanceToFile(accountBalance)
 		default:
 			fmt.Println("Goodbye!")
+			fmt.Println("Thanks for visiting Go Bank!")
+			fmt.Println()
+
+			// return must be used to end the entire application
+			// switch should be used when application does not need to be broken out of
 			return
 		}
 
@@ -85,5 +114,5 @@ func main() {
 		// 	break
 		// }
 	}
-	fmt.Println("Thanks for visiting Go Bank!")
+
 }
