@@ -1,0 +1,2 @@
+EBT: Earnings before taxes: 500.00
+Profit: Profits after taxes: 490.00

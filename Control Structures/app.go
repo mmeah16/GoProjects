@@ -41,6 +41,7 @@ func main() {
 		fmt.Println("ERROR")
 		fmt.Println(err)
 		fmt.Println("------")
+		panic("Account not found in Go Bank system!")
 	}
 	for i := 0; i < 200; i++ {
 
